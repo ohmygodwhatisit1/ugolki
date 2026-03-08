@@ -104,6 +104,15 @@ wss.on('connection', (ws) => {
       } else {
         spectators.push({ id: playerId, name: playerName, ws });
       }
+      // Reset game if over
+      if (gameState.gameOver) {
+        gameState = {
+          board: initializeBoard(),
+          currentPlayer: 'white',
+          gameOver: false,
+          winner: null
+        };
+      }
       ws.send(JSON.stringify({ type: 'joined', id: playerId, color: playerColor, gameState }));
       updatePlayerList();
     } else if (data.type === 'rename') {
@@ -224,6 +233,6 @@ function checkWin() {
   }
 }
 
-server.listen(3000, () => {
-  console.log('Server running on port 3000');
+server.listen(process.env.PORT || 3000, () => {
+  console.log('Server running on port', process.env.PORT || 3000);
 });
