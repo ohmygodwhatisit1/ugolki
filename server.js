@@ -114,6 +114,7 @@ wss.on('connection', (ws) => {
         };
       }
       console.log('Player joined:', playerId, playerColor, 'Players:', players.length, 'Spectators:', spectators.length);
+      console.log('Sending gameState:', JSON.stringify(gameState));
       ws.send(JSON.stringify({ type: 'joined', id: playerId, color: playerColor, gameState }));
       updatePlayerList();
     } else if (data.type === 'rename') {

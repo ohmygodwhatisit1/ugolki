@@ -1,4 +1,5 @@
-const ws = new WebSocket('ws://localhost:3000');
+const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const ws = new WebSocket(protocol + '//' + window.location.host);
 let myId = null;
 let myColor = null;
 let selected = null;
@@ -52,6 +53,10 @@ function generateId() {
 
 function drawBoard() {
   console.log('Drawing board, gameState:', gameState);
+  if (!gameState || !gameState.board) {
+    console.log('No gameState or board');
+    return;
+  }
   const boardEl = document.getElementById('board');
   boardEl.innerHTML = '';
   const possibleMoves = selected ? getPossibleMoves(selected[0], selected[1]) : [];
