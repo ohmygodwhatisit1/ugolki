@@ -113,6 +113,7 @@ wss.on('connection', (ws) => {
           winner: null
         };
       }
+      console.log('Player joined:', playerId, playerColor, 'Players:', players.length, 'Spectators:', spectators.length);
       ws.send(JSON.stringify({ type: 'joined', id: playerId, color: playerColor, gameState }));
       updatePlayerList();
     } else if (data.type === 'rename') {

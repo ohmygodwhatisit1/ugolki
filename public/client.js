@@ -5,14 +5,24 @@ let selected = null;
 let gameState = null;
 
 ws.onopen = () => {
+  console.log('WebSocket connected');
   myId = localStorage.getItem('ugolkiId') || generateId();
   const name = localStorage.getItem('ugolkiName') || 'Player';
   ws.send(JSON.stringify({ type: 'join', id: myId, name }));
   document.getElementById('nameInput').value = name;
 };
 
+ws.onclose = () => {
+  console.log('WebSocket closed');
+};
+
+ws.onerror = (error) => {
+  console.log('WebSocket error:', error);
+};
+
 ws.onmessage = (event) => {
   const data = JSON.parse(event.data);
+  console.log('Received:', data);
   if (data.type === 'joined') {
     myId = data.id;
     myColor = data.color;
@@ -41,6 +51,7 @@ function generateId() {
 }
 
 function drawBoard() {
+  console.log('Drawing board, gameState:', gameState);
   const boardEl = document.getElementById('board');
   boardEl.innerHTML = '';
   const possibleMoves = selected ? getPossibleMoves(selected[0], selected[1]) : [];
