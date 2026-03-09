@@ -143,6 +143,15 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     players = players.filter(p => p.id !== playerId);
     spectators = spectators.filter(s => s.id !== playerId);
+    if (players.length < 2) {
+      gameState = {
+        board: initializeBoard(),
+        currentPlayer: 'white',
+        gameOver: false,
+        winner: null
+      };
+      broadcast({ type: 'update', gameState });
+    }
     updatePlayerList();
   });
 });
