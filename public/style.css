@@ -2,12 +2,13 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: var(--text-color);
 }
 
 #game {
@@ -20,34 +21,51 @@ h1 {
 
 #board {
   display: grid;
-  grid-template-columns: repeat(8, 50px);
-  grid-template-rows: repeat(8, 50px);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
   gap: 2px;
   margin-bottom: 20px;
+  width: min(400px, 90vw);
+  height: min(400px, 90vw);
 }
 
 .cell {
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: var(--cell-bg);
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  aspect-ratio: 1;
 }
 
 .cell.black {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--black-cell);
 }
 
 .cell.white {
-  background-color: #fff;
+  background-color: var(--white-cell);
 }
 
 .cell.selected {
-  background-color: #ff0;
+  background-color: var(--selected-bg);
+}
+
+.piece {
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background-color: var(--piece-color);
+}
+
+.cell.black .piece {
+  background-color: var(--black-piece);
+  border: 2px solid #000;
+}
+
+.cell.white .piece {
+  background-color: var(--white-piece);
+  border: 2px solid #000;
 }
 
 #sidebar {
@@ -73,11 +91,11 @@ h1 {
 }
 
 .status.online {
-  background-color: green;
+  background-color: var(--online-color);
 }
 
 .status.offline {
-  background-color: gray;
+  background-color: var(--offline-color);
 }
 
 #controls {
@@ -86,6 +104,40 @@ h1 {
 
 #status {
   font-weight: bold;
+}
+
+/* Light theme */
+:root {
+  --bg-color: #f0f0f0;
+  --text-color: #333;
+  --cell-bg: #fff;
+  --border-color: #ccc;
+  --black-cell: #fff;
+  --white-cell: #fff;
+  --selected-bg: #ff0;
+  --piece-color: #333;
+  --black-piece: #000;
+  --white-piece: #fff;
+  --online-color: green;
+  --offline-color: gray;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --cell-bg: #fff;
+    --border-color: #555;
+    --black-cell: #fff;
+    --white-cell: #fff;
+    --selected-bg: #ff0;
+    --piece-color: #e0e0e0;
+    --black-piece: #000;
+    --white-piece: #fff;
+    --online-color: #4caf50;
+    --offline-color: #757575;
+  }
 }
 
 @media (min-width: 600px) {

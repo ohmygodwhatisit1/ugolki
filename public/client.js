@@ -66,7 +66,9 @@ function drawBoard() {
       cell.className = 'cell';
       if (gameState.board[r][c]) {
         cell.classList.add(gameState.board[r][c]);
-        cell.textContent = '●';
+        const piece = document.createElement('div');
+        piece.className = 'piece';
+        cell.appendChild(piece);
       }
       if (selected && selected[0] === r && selected[1] === c) {
         cell.classList.add('selected');
