@@ -99,7 +99,7 @@ wss.on('connection', (ws) => {
       playerId = data.id || generateId();
       playerName = data.name || 'Player';
       if (players.length < 2) {
-        playerColor = players.length === 0 ? 'white' : 'black';
+        playerColor = players.some(p => p.color === 'white') ? 'black' : 'white';
         players.push({ id: playerId, name: playerName, color: playerColor, ws });
       } else {
         spectators.push({ id: playerId, name: playerName, ws });
