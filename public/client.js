@@ -145,7 +145,7 @@ function handleClick(r, c) {
 
 function drawPlayers(players) {
   const playersEl = document.getElementById('players');
-  playersEl.innerHTML = '<h3>Players</h3>';
+  playersEl.innerHTML = '<h3>Игроки</h3>';
   players.forEach(player => {
     const div = document.createElement('div');
     div.className = 'player';
