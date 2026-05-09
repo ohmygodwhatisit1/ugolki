@@ -144,12 +144,18 @@ wss.on('connection', (ws) => {
     players = players.filter(p => p.id !== playerId);
     spectators = spectators.filter(s => s.id !== playerId);
     if (players.length < 2) {
-      gameState = {
-        board: initializeBoard(),
-        currentPlayer: 'white',
-        gameOver: false,
-        winner: null
-      };
+      if (players.length === 1) {
+        // Остался один игрок - установим currentPlayer на его цвет
+        gameState.currentPlayer = players[0].color;
+      } else {
+        // Оба отключились - сбросим игру
+        gameState = {
+          board: initializeBoard(),
+          currentPlayer: 'white',
+          gameOver: false,
+          winner: null
+        };
+      }
       broadcast({ type: 'update', gameState });
     }
     updatePlayerList();
