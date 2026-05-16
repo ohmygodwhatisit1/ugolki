@@ -148,6 +148,9 @@ function drawAnnotations() {
     const [r, c] = key.split(',').map(Number);
     const circle = document.createElement('div');
     circle.className = 'annotation-circle';
+    const size = cellSize * 0.8;
+    circle.style.width = `${size}px`;
+    circle.style.height = `${size}px`;
     circle.style.left = `${c * cellSize + cellSize / 2}px`;
     circle.style.top = `${r * cellSize + cellSize / 2}px`;
     arrowLayer.appendChild(circle);
@@ -167,7 +170,8 @@ function drawAnnotations() {
 
     const line = document.createElement('div');
     line.className = 'annotation-arrow';
-    line.style.width = `${length}px`;
+    line.style.width = `${length - 12}px`;
+    line.style.height = '4px';
     line.style.left = `${startX}px`;
     line.style.top = `${startY - 2}px`;
     line.style.transform = `rotate(${angle}rad)`;
@@ -175,8 +179,8 @@ function drawAnnotations() {
 
     const head = document.createElement('div');
     head.className = 'annotation-arrow-head';
-    head.style.left = `${endX}px`;
-    head.style.top = `${endY}px`;
+    head.style.left = `${endX - 6}px`;
+    head.style.top = `${endY - 6}px`;
     head.style.transform = `rotate(${angle}rad)`;
     arrowLayer.appendChild(head);
   });
